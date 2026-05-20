@@ -1,0 +1,269 @@
+/* ============================================================
+   Missless — Shared partials (navbar + mobile drawer)
+   Loaded on every page so the nav is identical site-wide.
+   All tokens used by the nav are scoped to .nav and .mobile-drawer
+   so they cannot leak onto page-specific styles (booking widget,
+   hero sections, etc).
+   ============================================================ */
+
+/* --- Scoped tokens --------------------------------------------------- */
+.nav,
+.mobile-drawer {
+  --nv-blue:        #2563EB;
+  --nv-blue-hover:  #1D4ED8;
+  --nv-violet:      #7C3AED;
+  --nv-pink:        #EC4899;
+  --nv-ink-900:     #0F172A;
+  --nv-ink-700:     #1F2937;
+  --nv-ink-500:     #475569;
+  --nv-ink-300:     #94A3B8;
+  --nv-border:      #E2E8F0;
+  --nv-border-soft: #EFF1F5;
+  --nv-bg-tint:     #EFF6FF;
+  --nv-tint-blue:   #DBEAFE;
+  --nv-tint-violet: #E9D5FF;
+  --nv-tint-pink:   #FCE7F3;
+  --nv-shadow-blue: 0 16px 40px -12px rgba(37, 99, 235, .35);
+  --nv-shadow-md:   0 8px 24px -8px rgba(15, 23, 42, .08), 0 4px 12px rgba(15, 23, 42, .04);
+  --nv-shadow-lg:   0 24px 56px -12px rgba(15, 23, 42, .15), 0 8px 24px rgba(15, 23, 42, .06);
+  --nv-radius:      16px;
+}
+
+/* --- Navbar shell ---------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(248, 250, 252, .85);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid rgba(226, 232, 240, .6);
+  font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--nv-ink-900);
+}
+
+/* .nav__inner uses .container in markup. We size it explicitly here
+   so it works regardless of which page-specific .container rule exists. */
+.nav__inner,
+.nav__inner.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 72px;
+}
+
+.nav__logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav__logo img { height: 32px; width: auto; display: block; }
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+.nav__item { position: relative; }
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--nv-ink-700);
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color .2s, background .2s;
+  font-family: inherit;
+}
+.nav__link:hover { color: var(--nv-blue); background: rgba(37,99,235,.06); }
+.nav__link svg { transition: transform .25s ease; }
+.nav__item--mega:hover .nav__link svg,
+.nav__item--mega:focus-within .nav__link svg { transform: rotate(180deg); }
+
+.nav__cta { display: inline-flex; align-items: center; gap: 8px; }
+
+/* --- Nav buttons (descendant selectors to win over .btn from page CSS) - */
+.nav .btn,
+.mobile-drawer .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: transform .25s ease, box-shadow .25s ease, background .2s ease, color .2s ease;
+  cursor: pointer;
+  line-height: 1;
+  text-decoration: none;
+  font-family: inherit;
+}
+.nav .btn:hover,
+.mobile-drawer .btn:hover { transform: translateY(-2px); }
+
+.nav .btn--primary,
+.mobile-drawer .btn--primary {
+  background: var(--nv-blue);
+  color: #fff;
+  box-shadow: var(--nv-shadow-blue);
+}
+.nav .btn--primary:hover,
+.mobile-drawer .btn--primary:hover {
+  background: var(--nv-blue-hover);
+  box-shadow: 0 20px 48px -12px rgba(37, 99, 235, .5);
+}
+.nav .btn--primary-sm {
+  background: var(--nv-blue);
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 14px;
+  box-shadow: var(--nv-shadow-blue);
+}
+.nav .btn--primary-sm:hover { background: var(--nv-blue-hover); }
+
+/* --- Mobile hamburger ----------------------------------------------- */
+.nav__hamburger {
+  display: none;
+  width: 40px; height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.nav__hamburger span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--nv-ink-700);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+.nav__hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* --- Mega menu ------------------------------------------------------- */
+.mega {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: #fff;
+  border: 1px solid var(--nv-border);
+  border-radius: var(--nv-radius);
+  box-shadow: var(--nv-shadow-lg);
+  padding: 12px;
+  display: grid;
+  gap: 4px;
+  width: 380px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s, transform .2s, visibility .2s;
+  z-index: 60;
+}
+.mega--wide { width: 720px; grid-template-columns: 1fr 1fr; }
+.nav__item--mega:hover .mega,
+.nav__item--mega:focus-within .mega {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.mega__item {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background .2s;
+  text-decoration: none;
+  color: inherit;
+}
+.mega__item:hover { background: var(--nv-bg-tint); }
+.mega__icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mega__icon svg { width: 20px; height: 20px; }
+.mega__icon--blue   { background: var(--nv-tint-blue);   color: var(--nv-blue); }
+.mega__icon--violet { background: var(--nv-tint-violet); color: var(--nv-violet); }
+.mega__icon--pink   { background: var(--nv-tint-pink);   color: var(--nv-pink); }
+.mega__title { font-weight: 600; font-size: 14px; color: var(--nv-ink-900); }
+.mega__desc { font-size: 13px; color: var(--nv-ink-500); line-height: 1.4; }
+.mega__arrow {
+  color: var(--nv-ink-300);
+  font-size: 18px;
+  transition: transform .2s, color .2s;
+}
+.mega__item:hover .mega__arrow { transform: translateX(4px); color: var(--nv-blue); }
+
+/* --- Mobile drawer --------------------------------------------------- */
+.mobile-drawer {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--nv-border);
+  padding: 16px 24px 24px;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: var(--nv-shadow-md);
+  font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.mobile-drawer.is-open { display: flex; }
+.mobile-link, .mobile-acc summary {
+  display: block;
+  padding: 12px 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--nv-ink-900);
+  border-bottom: 1px solid var(--nv-border-soft);
+  cursor: pointer;
+  list-style: none;
+  text-decoration: none;
+}
+.mobile-acc summary::-webkit-details-marker { display: none; }
+.mobile-acc summary::after {
+  content: "+";
+  float: right;
+  color: var(--nv-blue);
+  font-size: 20px;
+  line-height: 1;
+}
+.mobile-acc[open] summary::after { content: "−"; }
+.mobile-acc a {
+  display: block;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--nv-ink-700);
+  text-decoration: none;
+}
+.mobile-acc a:hover { color: var(--nv-blue); }
+
+/* --- Responsive ------------------------------------------------------ */
+@media (max-width: 760px) {
+  .nav__links { display: none; }
+  .nav__hamburger { display: inline-flex; }
+}
