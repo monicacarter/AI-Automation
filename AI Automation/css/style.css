@@ -299,6 +299,8 @@ p { margin: 0; }
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid rgba(226, 232, 240, .6);
+  font-family: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink-900);
 }
 .nav__inner {
   display: flex;
@@ -333,6 +335,16 @@ p { margin: 0; }
 .nav__item--mega:focus-within .nav__link svg { transform: rotate(180deg); }
 
 .nav__cta { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Scoped overrides — keep nav buttons pill-shaped on any page,
+   even if a page-specific stylesheet redefines `.btn` */
+.nav .btn,
+.nav .btn--primary-sm,
+.nav .btn--ghost-sm,
+.mobile-drawer .btn,
+.mobile-drawer .btn--primary {
+  border-radius: 999px;
+}
 
 /* Hamburger */
 .nav__hamburger {

@@ -23,6 +23,15 @@
   <meta name="twitter:image" content="https://missless.com/og/book-a-demo.png" />
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Geist (used by the shared navbar) + Inter (used by the booking page body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" />
+
+  <!-- Shared stylesheet (navbar, footer, tokens) used by all pages -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Booking page styles (must come after style.css so page-specific rules win) -->
   <link rel="stylesheet" href="css/book.css" />
 
   <!-- JSON-LD structured data -->
@@ -58,99 +67,120 @@
 </head>
 <body>
   <!-- ============================================================
-       NAVBAR
-       ============================================================ -->
-  <header class="navbar">
-    <nav class="navbar__inner" aria-label="Primary">
-      <a href="/" class="navbar__logo" aria-label="Missless home">
-        <svg class="logo" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Missless">
-          <rect x="0" y="2" width="36" height="36" rx="10" fill="#2563EB" />
-          <path d="M8 28 V14 L14 22 L20 14 V28" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-          <circle cx="27" cy="17" r="5" fill="#FFFFFF" />
-          <circle cx="25.5" cy="16.5" r="0.9" fill="#2563EB" />
-          <circle cx="28.5" cy="16.5" r="0.9" fill="#2563EB" />
-          <text x="46" y="27" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="20" letter-spacing="-0.5" fill="#0F172A">Missless</text>
-        </svg>
+       NAVIGATION — identical structure across all pages
+  ============================================================ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a class="nav__logo" href="/" aria-label="Missless — home">
+        <img src="assets/logo.png" alt="Missless — AI front office" width="120" height="40" />
       </a>
 
-      <!-- Desktop nav -->
-      <ul class="navbar__menu">
-        <li class="navbar__item navbar__item--has-menu" data-dropdown="products">
-          <button type="button" class="navbar__link" aria-haspopup="true" aria-expanded="false">
+      <nav class="nav__links" aria-label="Primary">
+        <div class="nav__item nav__item--mega" data-mega="products">
+          <button class="nav__link" aria-haspopup="true" aria-expanded="false">
             Products
-            <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+            <svg aria-hidden="true" viewBox="0 0 12 7" width="12" height="7"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div class="navbar__dropdown" role="menu">
-            <a href="/products/ai-receptionist" role="menuitem">AI Receptionist</a>
-            <a href="/products/ai-sales-agent" role="menuitem">AI Sales Agent</a>
-            <a href="/products/ai-messaging" role="menuitem">AI Messaging</a>
+          <div class="mega" role="menu">
+            <a class="mega__item" href="/ai-receptionist" role="menuitem">
+              <span class="mega__icon mega__icon--blue">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 006.6 6.6l2.2-2.2a1 1 0 011-.25c1.1.36 2.3.55 3.5.55a1 1 0 011 1V20a1 1 0 01-1 1A18 18 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.2.2 2.4.55 3.5a1 1 0 01-.25 1L6.6 10.8z"/></svg>
+              </span>
+              <div>
+                <div class="mega__title">AI Receptionist</div>
+                <div class="mega__desc">Answers every inbound call 24/7 with natural conversation.</div>
+              </div>
+              <span class="mega__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="mega__item" href="/ai-sales-agent" role="menuitem">
+              <span class="mega__icon mega__icon--violet">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+              </span>
+              <div>
+                <div class="mega__title">AI Sales Agent</div>
+                <div class="mega__desc">Calls new leads in under 60 seconds and books consultations.</div>
+              </div>
+              <span class="mega__arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="mega__item" href="/ai-messaging" role="menuitem">
+              <span class="mega__icon mega__icon--pink">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2H8l-4 4V6a2 2 0 012-2z"/></svg>
+              </span>
+              <div>
+                <div class="mega__title">AI Messaging</div>
+                <div class="mega__desc">SMS, web chat, WhatsApp, and email in one intelligent system.</div>
+              </div>
+              <span class="mega__arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-        </li>
+        </div>
 
-        <li class="navbar__item navbar__item--has-menu" data-dropdown="industries">
-          <button type="button" class="navbar__link" aria-haspopup="true" aria-expanded="false">
+        <div class="nav__item nav__item--mega" data-mega="industries">
+          <button class="nav__link" aria-haspopup="true" aria-expanded="false">
             Industries
-            <svg class="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+            <svg aria-hidden="true" viewBox="0 0 12 7" width="12" height="7"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div class="navbar__dropdown navbar__dropdown--wide" role="menu">
-            <a href="/industries/home-services" role="menuitem">Home Services</a>
-            <a href="/industries/financial-services" role="menuitem">Financial Services</a>
-            <a href="/industries/healthcare-dental" role="menuitem">Healthcare and Dental</a>
-            <a href="/industries/real-estate" role="menuitem">Real Estate</a>
-            <a href="/industries/retail-ecommerce" role="menuitem">Retail and E-commerce</a>
-            <a href="/industries/education-training" role="menuitem">Education and Training</a>
+          <div class="mega mega--wide" role="menu">
+            <a class="mega__item" href="/solutions/home-services" role="menuitem">
+              <span class="mega__icon mega__icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg></span>
+              <div><div class="mega__title">Home Services</div><div class="mega__desc">Win the job before a competitor calls back.</div></div>
+            </a>
+            <a class="mega__item" href="/solutions/financial-services" role="menuitem">
+              <span class="mega__icon mega__icon--violet"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 10l9-6 9 6v2H3v-2zm2 4h2v6H5zm4 0h2v6H9zm4 0h2v6h-2zm4 0h2v6h-2z"/></svg></span>
+              <div><div class="mega__title">Financial Services</div><div class="mega__desc">Respond to qualified prospects the moment they raise their hand.</div></div>
+            </a>
+            <a class="mega__item" href="/solutions/healthcare" role="menuitem">
+              <span class="mega__icon mega__icon--pink"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7-4.5-9.5-9.2C.9 8.7 2.8 5 6.2 5 8.2 5 9.6 6 12 8.2 14.4 6 15.8 5 17.8 5c3.4 0 5.3 3.7 3.7 6.8C19 16.5 12 21 12 21z"/></svg></span>
+              <div><div class="mega__title">Healthcare &amp; Dental</div><div class="mega__desc">Handle patient inquiries without pulling staff from care.</div></div>
+            </a>
+            <a class="mega__item" href="/solutions/real-estate" role="menuitem">
+              <span class="mega__icon mega__icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 21V8l9-5 9 5v13h-6v-6h-6v6z"/></svg></span>
+              <div><div class="mega__title">Real Estate</div><div class="mega__desc">Buyer inquiries, tenant questions, and viewings around the clock.</div></div>
+            </a>
+            <a class="mega__item" href="/solutions/retail" role="menuitem">
+              <span class="mega__icon mega__icon--pink"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h15l-2 9H8L6 4H3v2zm2 14a2 2 0 11.001-4.001A2 2 0 018 20zm10 0a2 2 0 11.001-4.001A2 2 0 0118 20z"/></svg></span>
+              <div><div class="mega__title">Retail &amp; E-commerce</div><div class="mega__desc">Instant support and product help that recovers abandoned conversations.</div></div>
+            </a>
+            <a class="mega__item" href="/solutions/education" role="menuitem">
+              <span class="mega__icon mega__icon--violet"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3L1 9l11 6 9-4.9V17h2V9zM5 13.2V17l7 4 7-4v-3.8l-7 3.8z"/></svg></span>
+              <div><div class="mega__title">Education &amp; Training</div><div class="mega__desc">Enrollment questions, info requests, and consultation booking.</div></div>
+            </a>
           </div>
-        </li>
+        </div>
 
-        <li class="navbar__item">
-          <a href="/pricing" class="navbar__link">Pricing</a>
-        </li>
-        <li class="navbar__item">
-          <a href="/about" class="navbar__link">About</a>
-        </li>
-      </ul>
+        <a class="nav__link nav__link--plain" href="/pricing">Pricing</a>
+        <a class="nav__link nav__link--plain" href="/about">About</a>
+      </nav>
 
-      <a href="/contact" class="btn btn--primary navbar__cta">
-        Contact us
-        <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
+      <div class="nav__cta">
+        <a class="btn btn--primary-sm" href="/contact">Contact us</a>
+      </div>
 
-      <button type="button" class="navbar__mobile-toggle" id="mobileToggle" aria-label="Open menu" aria-expanded="false">
-        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
+      <button class="nav__hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
-    </nav>
+    </div>
 
     <!-- Mobile drawer -->
-    <div class="navbar__mobile" id="mobileDrawer" hidden>
-      <details>
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+      <details class="mobile-acc">
         <summary>Products</summary>
-        <a href="/products/ai-receptionist">AI Receptionist</a>
-        <a href="/products/ai-sales-agent">AI Sales Agent</a>
-        <a href="/products/ai-messaging">AI Messaging</a>
+        <a href="/ai-receptionist">AI Receptionist</a>
+        <a href="/ai-sales-agent">AI Sales Agent</a>
+        <a href="/ai-messaging">AI Messaging</a>
       </details>
-      <details>
+      <details class="mobile-acc">
         <summary>Industries</summary>
-        <a href="/industries/home-services">Home Services</a>
-        <a href="/industries/financial-services">Financial Services</a>
-        <a href="/industries/healthcare-dental">Healthcare and Dental</a>
-        <a href="/industries/real-estate">Real Estate</a>
-        <a href="/industries/retail-ecommerce">Retail and E-commerce</a>
-        <a href="/industries/education-training">Education and Training</a>
+        <a href="/solutions/home-services">Home Services</a>
+        <a href="/solutions/financial-services">Financial Services</a>
+        <a href="/solutions/healthcare">Healthcare &amp; Dental</a>
+        <a href="/solutions/real-estate">Real Estate</a>
+        <a href="/solutions/retail">Retail &amp; E-commerce</a>
+        <a href="/solutions/education">Education &amp; Training</a>
       </details>
-      <a href="/pricing" class="navbar__mobile-link">Pricing</a>
-      <a href="/about" class="navbar__mobile-link">About</a>
-      <a href="/contact" class="btn btn--primary navbar__mobile-cta">Contact us</a>
+      <a class="mobile-link" href="/pricing">Pricing</a>
+      <a class="mobile-link" href="/about">About</a>
+      <a class="btn btn--primary" href="/contact" style="margin-top:1rem;width:100%;justify-content:center">Contact us</a>
     </div>
   </header>
 
@@ -492,6 +522,9 @@
     </div>
   </footer>
 
-  <script src="js/book.js"></script>
+  <!-- Shared scripts (navbar, mega menu, mobile drawer) -->
+  <script src="js/main.js" defer></script>
+  <!-- Booking-page scripts (calendar, time grid, form) -->
+  <script src="js/book.js" defer></script>
 </body>
 </html>

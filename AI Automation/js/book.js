@@ -1,7 +1,7 @@
 /* =========================================================================
    Missless — Book a Demo
-   Vanilla JS handling: navbar dropdowns, mobile drawer, 3-step booking flow,
-   calendar render, time selection, form validation, confirmation.
+   Vanilla JS handling: 3-step booking flow, calendar render, time selection,
+   form validation, confirmation. (Navbar + mobile drawer live in main.js.)
    ========================================================================= */
 
 (function () {
@@ -11,64 +11,6 @@
   // Footer year
   // ---------------------------------------------------------------------
   document.getElementById("footerYear").textContent = new Date().getFullYear();
-
-  // ---------------------------------------------------------------------
-  // Navbar — desktop dropdowns (click-to-open as a fallback to hover)
-  // ---------------------------------------------------------------------
-  const dropdownItems = document.querySelectorAll(".navbar__item--has-menu");
-  dropdownItems.forEach((item) => {
-    const trigger = item.querySelector(".navbar__link");
-    if (!trigger) return;
-
-    trigger.addEventListener("click", (e) => {
-      e.preventDefault();
-      // Close other dropdowns
-      dropdownItems.forEach((other) => {
-        if (other !== item) {
-          other.classList.remove("is-open");
-          const t = other.querySelector(".navbar__link");
-          if (t) t.setAttribute("aria-expanded", "false");
-        }
-      });
-      // Toggle this one
-      const isOpen = item.classList.toggle("is-open");
-      trigger.setAttribute("aria-expanded", String(isOpen));
-    });
-  });
-
-  // Close dropdowns when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".navbar__item--has-menu")) {
-      dropdownItems.forEach((item) => {
-        item.classList.remove("is-open");
-        const t = item.querySelector(".navbar__link");
-        if (t) t.setAttribute("aria-expanded", "false");
-      });
-    }
-  });
-
-  // ---------------------------------------------------------------------
-  // Navbar — mobile drawer
-  // ---------------------------------------------------------------------
-  const mobileToggle = document.getElementById("mobileToggle");
-  const mobileDrawer = document.getElementById("mobileDrawer");
-
-  if (mobileToggle && mobileDrawer) {
-    mobileToggle.addEventListener("click", () => {
-      const open = !mobileDrawer.hasAttribute("hidden")
-        ? false
-        : true;
-      if (open) {
-        mobileDrawer.removeAttribute("hidden");
-        mobileToggle.setAttribute("aria-expanded", "true");
-        mobileToggle.setAttribute("aria-label", "Close menu");
-      } else {
-        mobileDrawer.setAttribute("hidden", "");
-        mobileToggle.setAttribute("aria-expanded", "false");
-        mobileToggle.setAttribute("aria-label", "Open menu");
-      }
-    });
-  }
 
   // ---------------------------------------------------------------------
   // Booking flow — state
